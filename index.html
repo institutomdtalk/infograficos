@@ -902,65 +902,59 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .mat-tipo{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)}
 
 /* ═══════════════════════════════════════
-   LINK CARDS
+   LINK CARDS — novo visual
 ═══════════════════════════════════════ */
-/* ── Card horizontal ── */
 .card--link{
   display:flex;flex-direction:row;
   text-decoration:none;color:inherit;cursor:pointer;
   aspect-ratio:unset;
+  background:var(--off-white);
+  border:1.5px dashed rgba(196,164,90,0.35) !important;
+  box-shadow:none !important;
+  transition:background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.card--link::before{ display:none !important }
+.card--link:hover{
+  background:var(--white) !important;
+  border-color:rgba(196,164,90,0.6) !important;
+  box-shadow:0 4px 24px rgba(196,164,90,0.1) !important;
+  transform:none !important;
 }
 .card--link .card-pad{
   flex:1;display:flex;flex-direction:row;
   align-items:center;gap:18px;
-  padding:20px 22px;
+  padding:18px 20px;
 }
-.link-icon{
-  width:46px;height:46px;border-radius:50%;
+
+/* ── Ícone com anel giratório ── */
+.link-icon-wrap{
+  position:relative;flex-shrink:0;
+  width:52px;height:52px;
   display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;margin-bottom:0;
-  transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s ease;
-  position:relative;overflow:visible;
 }
-.link-icon svg{
-  width:20px;height:20px;
-  transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
+/* Anel SVG que gira no hover */
+.link-icon-wrap::before{
+  content:'';
+  position:absolute;inset:0;
+  border-radius:50%;
+  border:1.5px dashed rgba(196,164,90,0);
+  transition:border-color 0.3s ease;
 }
-.link-icon--navy{
-  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
-  box-shadow:0 2px 8px rgba(11,29,58,0.2);
+.link-icon-wrap::after{
+  content:'';
+  position:absolute;inset:-3px;
+  border-radius:50%;
+  border:1.5px solid transparent;
+  border-top-color:var(--gold);
+  border-right-color:rgba(196,164,90,0.3);
+  opacity:0;
+  transition:opacity 0.3s ease;
 }
-.link-icon--navy svg{stroke:var(--gold-light);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.link-icon--gold{background:var(--gold-faint);border:1px solid var(--border-gold)}
-.link-icon--gold svg{stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* ── Ícone base ── */
-.link-icon{
-  width:48px;height:48px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;margin-bottom:0;
-  position:relative;overflow:visible;
-  transition:box-shadow 0.4s ease;
+.card--link:hover .link-icon-wrap::after{
+  opacity:1;
+  animation:spinRing 1.2s linear infinite;
 }
-.link-icon svg{width:20px;height:20px}
-.link-icon--navy{background:linear-gradient(135deg,var(--navy),var(--navy-mid));box-shadow:0 2px 8px rgba(11,29,58,0.2)}
-.link-icon--navy svg{stroke:var(--gold-light);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* Anel de pulso ao hover (todos) */
-.link-icon::after{
-  content:'';position:absolute;inset:-4px;border-radius:50%;
-  border:1.5px solid rgba(196,164,90,0);
-  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
-}
-.card--link:hover .link-icon::after{
-  border-color:rgba(196,164,90,0.5);
-  inset:-7px;
-}
-.card--link:hover .link-icon{
-  box-shadow:0 0 0 4px rgba(196,164,90,0.1), 0 6px 20px rgba(11,29,58,0.25);
-}
-
-/* ── Animações permanentes (idle) ── */
+@keyframes spinRing{to{transform:rotate(360deg)}}
 @keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.2)}28%{transform:scale(1)}42%{transform:scale(1.12)}70%{transform:scale(1)}}
 @keyframes skinwave{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-2px) rotate(3deg)}75%{transform:translateY(2px) rotate(-3deg)}}
 @keyframes gutroll{0%,100%{transform:rotate(0deg)}50%{transform:rotate(180deg)}}
@@ -974,6 +968,58 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 @keyframes shield{0%,100%{transform:scale(1)}50%{transform:scale(1.1) rotate(5deg)}}
 @keyframes bookflip{0%,100%{transform:skewX(0deg)}50%{transform:skewX(-8deg)}}
 @keyframes mindpulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.3)}}
+
+.link-icon{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  position:relative;
+  transition:box-shadow 0.35s ease;
+  overflow:visible;
+}
+.link-icon svg{width:20px;height:20px;transition:none}
+.link-icon--navy{background:linear-gradient(135deg,var(--navy),var(--navy-mid));box-shadow:0 2px 8px rgba(11,29,58,0.15)}
+.link-icon--navy svg{stroke:var(--gold-light);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.link-icon--gold{background:var(--gold-faint);border:1px solid var(--border-gold)}
+.link-icon--gold svg{stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.card--link:hover .link-icon{box-shadow:0 4px 16px rgba(11,29,58,0.2)}
+
+/* ── Texto ── */
+.link-text{flex:1;min-width:0}
+.card-title{
+  font-family:var(--serif);
+  font-size:1.3rem;
+  font-weight:500;
+  color:var(--navy);
+  line-height:1.2;
+  margin-bottom:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* ── Botão seta dourado ── */
+.card-arrow{
+  flex-shrink:0;
+  width:38px;height:38px;border-radius:50%;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  margin-left:12px;
+  transition:all 0.35s cubic-bezier(0.22,1,0.36,1);
+  box-shadow:0 2px 8px rgba(196,164,90,0.3);
+}
+.card-arrow svg{
+  width:15px;height:15px;
+  stroke:var(--navy-deep);fill:none;
+  stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform 0.3s ease;
+}
+.card--link:hover .card-arrow{
+  background:var(--navy);
+  box-shadow:0 4px 16px rgba(11,29,58,0.25);
+}
+.card--link:hover .card-arrow svg{
+  stroke:var(--gold);
+  transform:translateX(2px);
+}
 
 /* ── Animações: só no hover ── */
 .icon-cirurg svg   { transform-origin:center }
@@ -1538,25 +1584,25 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 
     <div class="card card--link reveal" onclick="abrirGaleria('1b4rPFD9PiLkHNNdSwkC435aNQiA2Q9M0', 'Anatomia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-anat"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11c-4 0-7 2-7 4.5V18h14v-2.5c0-2.5-3-4.5-7-4.5z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-anat"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M12 11c-4 0-7 2-7 4.5V18h14v-2.5c0-2.5-3-4.5-7-4.5z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Anatomia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1iTjRjRtYfyj_HSvJ1XotFvba6HWXvDzI', 'Farmacologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-farma"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="4" rx="2" transform="rotate(-45 12 12)"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-farma"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="4" rx="2" transform="rotate(-45 12 12)"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Farmacologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1DG6orIZe0GubPrRpUdmWkv1D6yN1Fb1R', 'Testes e Exames')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-testes"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-testes"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Testes e Exames</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
     <div class="section-header reveal" style="grid-column:1/-1">
@@ -1568,97 +1614,97 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 
     <div class="card card--link reveal" onclick="abrirGaleria('1oA4RAc18_lhUZ-Hpk-GGJkyaeMooRYgA', 'Cardiologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-cardio"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-cardio"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Cardiologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1kEMYMO8v7wCqn85xXVl51_IBU9gKA6ls', 'Cirurgia Torácica')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-cirurg"><svg viewBox="0 0 24 24"><path d="M14.5 2.5c0 1.5-1.5 5-1.5 5h-2S9.5 4 9.5 2.5a2.5 2.5 0 015 0z"/><path d="M12 7.5V21"/><path d="M9 12l3 3 3-3"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-cirurg"><svg viewBox="0 0 24 24"><path d="M14.5 2.5c0 1.5-1.5 5-1.5 5h-2S9.5 4 9.5 2.5a2.5 2.5 0 015 0z"/><path d="M12 7.5V21"/><path d="M9 12l3 3 3-3"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Cirurgia Torácica</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1CBAtJ64IfzwRIsVPc_ngagaZ9cJq8HU_', 'Dermatologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-derm"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-derm"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Dermatologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('11M2Mhp0DrBLwkzgV9rznAiKan-dDLwjm', 'Endocrinologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-endo"><svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 014 4c0 1.5-.5 2.5-1 3.5L12 22l-3-12.5C8.5 8.5 8 7.5 8 6a4 4 0 014-4z"/><circle cx="12" cy="6" r="1.5"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-endo"><svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 014 4c0 1.5-.5 2.5-1 3.5L12 22l-3-12.5C8.5 8.5 8 7.5 8 6a4 4 0 014-4z"/><circle cx="12" cy="6" r="1.5"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Endocrinologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1TvyeOATTo_QIrrb3NF0D0jV9m2KNW4iF', 'Gastroenterologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-gastro"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-gastro"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Gastroenterologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1tbaSlMKtmN4zjvNw3pmY_v_jkm2yuozu', 'Hematologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-hema"><svg viewBox="0 0 24 24"><path d="M12 2C9 7 4 10 4 14a8 8 0 0016 0c0-4-5-7-8-12z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-hema"><svg viewBox="0 0 24 24"><path d="M12 2C9 7 4 10 4 14a8 8 0 0016 0c0-4-5-7-8-12z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Hematologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1Q9BD4nQqhlGVLUKvff_9hq3C_84h-s_o', 'Neurologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-neuro"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96.44 2.5 2.5 0 01-2.96-3.08 3 3 0 01-.34-5.58 2.5 2.5 0 013.32-3.97A2.5 2.5 0 019.5 2z"/><path d="M14.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 004.96.44 2.5 2.5 0 002.96-3.08 3 3 0 00.34-5.58 2.5 2.5 0 00-3.32-3.97A2.5 2.5 0 0014.5 2z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-neuro"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96.44 2.5 2.5 0 01-2.96-3.08 3 3 0 01-.34-5.58 2.5 2.5 0 013.32-3.97A2.5 2.5 0 019.5 2z"/><path d="M14.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 004.96.44 2.5 2.5 0 002.96-3.08 3 3 0 00.34-5.58 2.5 2.5 0 00-3.32-3.97A2.5 2.5 0 0014.5 2z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Neurologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1fxzW-zPWuh-igWUjXWXbnMmx7TjuaZe2', 'Oftalmologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-oftalmo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M4.22 4.22l2.12 2.12m11.32 11.32l2.12 2.12M2 12h3m14 0h3M4.22 19.78l2.12-2.12M18.66 5.34l2.12-2.12"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-oftalmo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M4.22 4.22l2.12 2.12m11.32 11.32l2.12 2.12M2 12h3m14 0h3M4.22 19.78l2.12-2.12M18.66 5.34l2.12-2.12"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Oftalmologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1lZoNbYyL3gdQgGhLpNEgbn4tZTBKBMIe', 'Oncologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-onco"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M8 12h.01"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-onco"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M8 12h.01"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Oncologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1DnyqCdBKVBds6psnPxsIO_9MbezmBqUh', 'Pneumologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-pneumo"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-pneumo"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Pneumologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1yaH5Yeh18BD6Wa3q080s4C7VvrOspYrv', 'Psiquiatria')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-psiq"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96.44 2.5 2.5 0 01-2.96-3.08 3 3 0 01-.34-5.58 2.5 2.5 0 013.32-3.97A2.5 2.5 0 019.5 2z"/><path d="M14.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 004.96.44 2.5 2.5 0 002.96-3.08 3 3 0 00.34-5.58 2.5 2.5 0 00-3.32-3.97A2.5 2.5 0 0014.5 2z"/><path d="M12 12h.01"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-psiq"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 01-4.96.44 2.5 2.5 0 01-2.96-3.08 3 3 0 01-.34-5.58 2.5 2.5 0 013.32-3.97A2.5 2.5 0 019.5 2z"/><path d="M14.5 2A2.5 2.5 0 0112 4.5v15a2.5 2.5 0 004.96.44 2.5 2.5 0 002.96-3.08 3 3 0 00.34-5.58 2.5 2.5 0 00-3.32-3.97A2.5 2.5 0 0014.5 2z"/><path d="M12 12h.01"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Psiquiatria</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1P_ibhAfO8VZBKY8VeMFSiNtvfL0dFZGa', 'Reumatologia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-reuma"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="2"/><circle cx="15" cy="7" r="2"/><path d="M5 20a7 7 0 0114 0"/><path d="M9 14c0 1.5.5 3 3 3s3-1.5 3-3"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-reuma"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="2"/><circle cx="15" cy="7" r="2"/><path d="M5 20a7 7 0 0114 0"/><path d="M9 14c0 1.5.5 3 3 3s3-1.5 3-3"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Reumatologia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
@@ -1672,65 +1718,65 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 
     <div class="card card--link reveal" onclick="abrirGaleria('1_6ujC7fkgTuCi_Rr98OQV1fhF2N2qGxf', 'Geek (Games)')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-geek"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><polyline points="7 10 10 13 17 8"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-geek"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><polyline points="7 10 10 13 17 8"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Geek (Games)</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1xnURsQnbs8Yd73SIS9tl8ZSs7qYKGzGZ', 'Geografia')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-geo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-geo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Geografia</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1EYZMXQhEDEdfSY7tEL0doEF8QuqccCsT', 'História')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-historia"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-historia"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">História</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1TGLYl7t4FTh-tYMMXoGwghj7Uv8Uqojy', 'Livros')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-livros"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-livros"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Livros</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('167QUAM7oDGTM_gPnh1gzcGAuZzGc_yXy', 'Mentalidade (Psicologia e Filosofia)')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-mental"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-mental"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Mentalidade (Psicologia e Filosofia)</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1aClOPgo0_PUDh35rpQCA6NoU2WlcK5EE', 'Pontos Turísticos')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-pontos"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-pontos"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Pontos Turísticos</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1ggELM4Yw_S2hS_c0YFUC3hCKxE8w5Ogp', 'Streaming (Filmes)')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-stream-f"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-stream-f"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Streaming (Filmes)</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
     <div class="card card--link reveal" onclick="abrirGaleria('1qBikN19Wii8F477TZOEbChpser-6OTMm', 'Streaming (Séries)')" style="cursor:pointer">
       <div class="card-pad">
-        <div class="link-icon link-icon--navy icon-stream-s"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 3H8"/><path d="M12 3v4"/></svg></div>
+        <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-stream-s"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 3H8"/><path d="M12 3v4"/></svg></div></div>
         <div class="link-text"><h3 class="card-title">Streaming (Séries)</h3>
-        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+        <span class="card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
 
