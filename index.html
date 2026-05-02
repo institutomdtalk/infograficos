@@ -2544,7 +2544,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ── BUSCA ──
-(function(){
+function initBusca() {
   var input   = document.getElementById('search-input');
   var clearBtn= document.getElementById('search-clear');
   var emptyEl = document.querySelector('.search-empty');
@@ -2555,36 +2555,36 @@ document.addEventListener('DOMContentLoaded', function() {
   input.addEventListener('input', function(){
     var q = normalize(this.value.trim());
     clearBtn.classList.toggle('visible', q.length > 0);
-    var cards = document.querySelectorAll('.card--link');
+    var cards    = document.querySelectorAll('.card--link');
     var sections = document.querySelectorAll('.section-header');
     var visibleCount = 0;
 
     if (!q) {
-      cards.forEach(function(c){ c.classList.remove('hidden'); c.closest('.reveal') && c.classList.remove('hidden'); });
-      sections.forEach(function(s){ s.classList.remove('hidden'); });
+      cards.forEach(function(c){ c.style.display = ''; });
+      sections.forEach(function(s){ s.style.display = ''; });
       if (emptyEl) emptyEl.style.display = 'none';
       return;
     }
 
-    // Esconde tudo primeiro
-    cards.forEach(function(c){ c.classList.add('hidden'); });
-    sections.forEach(function(s){ s.classList.add('hidden'); });
+    // Esconde tudo
+    cards.forEach(function(c){ c.style.display = 'none'; });
+    sections.forEach(function(s){ s.style.display = 'none'; });
 
     // Mostra os que batem
     cards.forEach(function(c){
       var titulo = c.querySelector('.card-title');
       if (titulo && normalize(titulo.textContent).indexOf(q) !== -1) {
-        c.classList.remove('hidden');
+        c.style.display = '';
         visibleCount++;
       }
     });
 
-    // Mostra seções que têm cards visíveis
+    // Mostra seções com cards visíveis
     sections.forEach(function(section){
       var next = section.nextElementSibling;
       while (next && !next.classList.contains('section-header')) {
-        if (next.classList.contains('card--link') && !next.classList.contains('hidden')) {
-          section.classList.remove('hidden');
+        if (next.classList.contains('card--link') && next.style.display !== 'none') {
+          section.style.display = '';
           break;
         }
         next = next.nextElementSibling;
@@ -2599,12 +2599,15 @@ document.addEventListener('DOMContentLoaded', function() {
     input.dispatchEvent(new Event('input'));
     input.focus();
   });
-})();
+}
+
+
 
 window.addEventListener('load', function(){
   showPage('dashboard');
   setTimeout(function(){ initReveal(); animateCards(); }, 80);
   setTimeout(carregarUltimos, 300);
+  initBusca();
 });
 
 // ── ÚLTIMOS INFOGRÁFICOS ──
