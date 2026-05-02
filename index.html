@@ -2168,9 +2168,10 @@ function fecharGaleria() {
 function abrirLightbox(index) {
   _lbIndex = index;
   var img = document.getElementById('lightbox-img');
-  img.src = _lbImages[index].id
-    ? 'https://drive.google.com/uc?export=view&id=' + _lbImages[index].id
-    : '';
+  img.src = '';
+  if (_lbImages[index] && _lbImages[index].id) {
+    img.src = 'https://lh3.googleusercontent.com/d/' + _lbImages[index].id + '=s1600';
+  }
   document.getElementById('lightbox-counter').textContent = (index + 1) + ' / ' + _lbImages.length;
   document.getElementById('lightbox-overlay').classList.add('active');
 }
