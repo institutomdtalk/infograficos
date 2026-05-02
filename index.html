@@ -877,6 +877,9 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .icon-geo svg      { transform-origin:center }
 .icon-historia svg { transform-origin:center }
 .icon-livros svg   { transform-origin:left center }
+.icon-pontos svg   { transform-origin:center bottom }
+.icon-stream-f svg { transform-origin:center }
+.icon-stream-s svg { transform-origin:center }
 .icon-mental svg   { transform-origin:center }
 .icon-anat svg     { transform-origin:center }
 .icon-farma svg    { transform-origin:center }
@@ -899,6 +902,9 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .card--link:hover .icon-geo svg      { animation: globe      6s linear infinite }
 .card--link:hover .icon-historia svg { animation: shield     2s ease-in-out infinite }
 .card--link:hover .icon-livros svg   { animation: bookflip   2.5s ease-in-out infinite }
+.card--link:hover .icon-pontos svg   { animation: gamepad    1.2s ease-in-out infinite }
+.card--link:hover .icon-stream-f svg { animation: filmroll   4s linear infinite }
+.card--link:hover .icon-stream-s svg { animation: filmroll   3s linear infinite }
 .card--link:hover .icon-mental svg   { animation: mindpulse  2s ease-in-out infinite }
 .card--link:hover .icon-anat svg     { animation: skinwave   2s ease-in-out infinite }
 .card--link:hover .icon-farma svg    { animation: heartbeat  1.6s ease-in-out infinite }
@@ -1520,7 +1526,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       <div class="section-header-line"></div>
     </div>
 
-    <div class="card card--link reveal" onclick="abrirGaleria('1ggELM4Yw_S2hS_c0YFUC3hCKxE8w5Ogp', 'Cinema (Filmes)')" style="cursor:pointer">
+    <div class="card card--link reveal" onclick="abrirGaleria('1ggELM4Yw_S2hS_c0YFUC3hCKxE8w5Ogp', 'Streaming (Filmes)')" style="cursor:pointer">
       <div class="card-pad">
         <div class="link-icon link-icon--navy icon-cinema"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 2v20"/><path d="M17 2v20"/><path d="M2 12h20"/><path d="M2 7h5"/><path d="M2 17h5"/><path d="M17 17h5"/><path d="M17 7h5"/></svg></div>
         <div class="link-text"><h3 class="card-title">Cinema (Filmes)</h3>
@@ -1564,6 +1570,30 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       <div class="card-pad">
         <div class="link-icon link-icon--navy icon-mental"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
         <div class="link-text"><h3 class="card-title">Mentalidade (Psicologia e Filosofia)</h3>
+        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+      </div>
+    </div>
+
+    <div class="card card--link reveal" onclick="abrirGaleria('1aClOPgo0_PUDh35rpQCA6NoU2WlcK5EE', 'Pontos Turísticos')" style="cursor:pointer">
+      <div class="card-pad">
+        <div class="link-icon link-icon--navy icon-pontos"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <div class="link-text"><h3 class="card-title">Pontos Turísticos</h3>
+        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+      </div>
+    </div>
+
+    <div class="card card--link reveal" onclick="abrirGaleria('1ggELM4Yw_S2hS_c0YFUC3hCKxE8w5Ogp', 'Streaming (Filmes)')" style="cursor:pointer">
+      <div class="card-pad">
+        <div class="link-icon link-icon--navy icon-stream-f"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <div class="link-text"><h3 class="card-title">Streaming (Filmes)</h3>
+        <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
+      </div>
+    </div>
+
+    <div class="card card--link reveal" onclick="abrirGaleria('1qBikN19Wii8F477TZOEbChpser-6OTMm', 'Streaming (Séries)')" style="cursor:pointer">
+      <div class="card-pad">
+        <div class="link-icon link-icon--navy icon-stream-s"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 3H8"/><path d="M12 3v4"/></svg></div>
+        <div class="link-text"><h3 class="card-title">Streaming (Séries)</h3>
         <span class="card-arrow">Acessar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></div>
       </div>
     </div>
