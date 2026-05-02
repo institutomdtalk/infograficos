@@ -917,6 +917,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .card--link:hover{
   background:var(--white) !important;
   border-color:rgba(196,164,90,0.6) !important;
+  border-style:solid !important;
   box-shadow:0 4px 24px rgba(196,164,90,0.1) !important;
   transform:none !important;
 }
@@ -1007,15 +1008,15 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .card--link:hover .card-arrow svg{transform:translateX(4px)}
 
 /* ── Animações: só no hover ── */
-.icon-cirurg svg   { transform-origin:center }
+.icon-cirurg svg, .icon-cirurg i.ph { transform-origin:center }
 .icon-cardio svg   { transform-origin:center }
 .icon-endo svg     { transform-origin:center }
 .icon-derm svg     { transform-origin:center }
 .icon-hema svg     { transform-origin:center }
 .icon-reuma svg    { transform-origin:center }
-.icon-gastro svg   { transform-origin:center }
+.icon-gastro svg, .icon-gastro i.ph { transform-origin:center }
 .icon-neuro svg    { transform-origin:center }
-.icon-oftalmo svg  { transform-origin:center }
+.icon-oftalmo svg, .icon-oftalmo i.ph { transform-origin:center }
 .icon-onco svg     { transform-origin:center }
 .icon-pneumo svg   { transform-origin:center bottom }
 .icon-psiq svg     { transform-origin:center }
@@ -1025,12 +1026,12 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .icon-historia svg { transform-origin:center }
 .icon-livros svg   { transform-origin:left center }
 .icon-pontos svg   { transform-origin:center bottom }
-.icon-stream-f svg { transform-origin:center }
-.icon-stream-s svg { transform-origin:center }
+.icon-stream-f svg, .icon-stream-f i.ph { transform-origin:center }
+.icon-stream-s svg, .icon-stream-s i.ph { transform-origin:center }
 .icon-mental svg   { transform-origin:center }
 .icon-anat svg     { transform-origin:center }
 .icon-farma svg    { transform-origin:center }
-.icon-testes svg   { transform-origin:center }
+.icon-testes svg, .icon-testes i.ph { transform-origin:center }
 
 .card--link:hover .icon-cirurg svg   { animation: gutroll    3s ease-in-out infinite }
 .card--link:hover .icon-cardio svg   { animation: heartbeat  1.4s ease-in-out infinite }
