@@ -424,6 +424,122 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   opacity:0.3;
 }
 
+/* Strip dourado no hero */
+.header-strip{
+  position:relative;z-index:1;
+  border-top:1px solid rgba(196,164,90,0.15);
+}
+.header-strip-inner{
+  max-width:1100px;margin:0 auto;
+  padding:18px 36px 24px;
+}
+
+/* Últimos infográficos */
+.ultimos-grid{
+  display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;
+}
+.ultimo-thumb{
+  width:100px;height:72px;border-radius:6px;
+  overflow:hidden;cursor:pointer;
+  border:1px solid rgba(196,164,90,0.2);
+  position:relative;flex-shrink:0;
+  transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
+  background:rgba(255,255,255,0.04);
+}
+.ultimo-thumb img{
+  width:100%;height:100%;object-fit:cover;object-position:top;
+  display:block;
+}
+.ultimo-thumb-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(5,13,26,0.85),transparent);
+  padding:6px 6px 4px;
+  font-family:var(--sans);font-size:8px;font-weight:600;
+  letter-spacing:0.5px;color:rgba(255,255,255,0.7);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ultimo-thumb:hover{
+  border-color:var(--gold);
+  transform:translateY(-3px);
+  box-shadow:0 6px 20px rgba(0,0,0,0.4);
+}
+.ultimos-loading{
+  font-size:11px;color:rgba(255,255,255,0.3);
+  display:flex;align-items:center;gap:8px;margin-top:10px;
+}
+@media(max-width:768px){
+  .ultimo-thumb{width:80px;height:58px}
+}
+
+.header-nav{
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;
+  padding:18px 36px 0;
+  display:flex;align-items:center;gap:0;
+}
+.header-nav a{
+  font-family:var(--sans);font-size:9px;font-weight:600;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);text-decoration:none;
+  padding-right:20px;
+  transition:color 0.3s;
+}
+.header-nav a+a{
+  padding-left:20px;padding-right:0;
+  border-left:1px solid rgba(196,164,90,0.15);
+}
+.header-nav a:hover{color:var(--gold)}
+
+/* Barra de busca no hero */
+.header-search{
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;
+  padding:0 36px 48px;
+}
+.search-wrap{
+  display:flex;align-items:center;gap:0;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(196,164,90,0.2);
+  border-radius:var(--radius);
+  max-width:520px;
+  transition:all 0.4s ease;
+  overflow:hidden;
+}
+.search-wrap:focus-within{
+  background:rgba(255,255,255,0.1);
+  border-color:rgba(196,164,90,0.5);
+  box-shadow:0 0 0 3px rgba(196,164,90,0.08);
+}
+.search-icon{
+  padding:0 14px;flex-shrink:0;
+  display:flex;align-items:center;
+}
+.search-icon svg{width:15px;height:15px;stroke:rgba(196,164,90,0.5);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.search-input{
+  flex:1;border:none;outline:none;background:transparent;
+  font-family:var(--sans);font-size:12px;font-weight:500;
+  letter-spacing:0.5px;color:var(--white);
+  padding:13px 16px 13px 0;
+}
+.search-input::placeholder{color:rgba(255,255,255,0.25)}
+.search-clear{
+  padding:0 14px;flex-shrink:0;
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,0.25);font-size:16px;line-height:1;
+  display:none;transition:color 0.2s;
+}
+.search-clear:hover{color:var(--gold)}
+.search-clear.visible{display:block}
+.search-empty{
+  grid-column:1/-1;text-align:center;
+  padding:60px 0;font-family:var(--serif);
+  font-size:1.1rem;color:var(--text-muted);font-style:italic;
+  display:none;
+}
+/* Seções escondidas na busca */
+.section-header.hidden{display:none}
+.card--link.hidden{display:none}
+
 /* ═══════════════════════════════════════
    DASHBOARD GRID
 ═══════════════════════════════════════ */
@@ -1373,16 +1489,44 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     <div class="hgeo hgeo--ring"></div>
     <div class="hgeo hgeo--line"></div>
     <div class="hgeo hgeo--diamond"></div>
+
+    <!-- Nav superior -->
+    <nav class="header-nav">
+      <a href="https://institutomdtalk.github.io/portaldoaluno/" target="_blank" rel="noopener">Portal do Aluno</a>
+    </nav>
+
+    <!-- Brand -->
     <div class="header-inner">
       <div class="header-brand">
         <p class="brand-label">Instituto MD Talk</p>
         <h1 class="brand-title">Coleção de <em>Infográficos</em></h1>
       </div>
     </div>
+
+    <!-- Busca -->
+    <div class="header-search">
+      <div class="search-wrap">
+        <div class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+        <input class="search-input" id="search-input" type="text" placeholder="Buscar infográfico..." autocomplete="off" spellcheck="false">
+        <button class="search-clear" id="search-clear">×</button>
+      </div>
+    </div>
+
+    <!-- Strip dourado -->
+    <div class="header-strip">
+      <div class="header-strip-inner">
+        <p class="presenca-label"><span class="pulse-dot"></span> Últimos infográficos postados</p>
+        <div id="ultimos-grid" class="ultimos-grid">
+          <div class="ultimos-loading"><span class="spinner-inline spinner-white"></span> Carregando...</div>
+        </div>
+      </div>
+    </div>
+
     <div class="header-gold-line"></div>
   </header>
 
   <main class="dashboard">
+    <div class="search-empty">Nenhum infográfico encontrado.</div>
 
     <!-- ══ 1. MEDICINA ══ -->
     <div class="section-header reveal" style="grid-column:1/-1">
@@ -2368,11 +2512,98 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-// ── INIT ──
+// ── BUSCA ──
+(function(){
+  var input   = document.getElementById('search-input');
+  var clearBtn= document.getElementById('search-clear');
+  var emptyEl = document.querySelector('.search-empty');
+  if (!input) return;
+
+  function normalize(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
+  input.addEventListener('input', function(){
+    var q = normalize(this.value.trim());
+    clearBtn.classList.toggle('visible', q.length > 0);
+    var cards = document.querySelectorAll('.card--link');
+    var sections = document.querySelectorAll('.section-header');
+    var visibleCount = 0;
+
+    if (!q) {
+      cards.forEach(function(c){ c.classList.remove('hidden'); c.closest('.reveal') && c.classList.remove('hidden'); });
+      sections.forEach(function(s){ s.classList.remove('hidden'); });
+      if (emptyEl) emptyEl.style.display = 'none';
+      return;
+    }
+
+    // Esconde tudo primeiro
+    cards.forEach(function(c){ c.classList.add('hidden'); });
+    sections.forEach(function(s){ s.classList.add('hidden'); });
+
+    // Mostra os que batem
+    cards.forEach(function(c){
+      var titulo = c.querySelector('.card-title');
+      if (titulo && normalize(titulo.textContent).indexOf(q) !== -1) {
+        c.classList.remove('hidden');
+        visibleCount++;
+      }
+    });
+
+    // Mostra seções que têm cards visíveis
+    sections.forEach(function(section){
+      var next = section.nextElementSibling;
+      while (next && !next.classList.contains('section-header')) {
+        if (next.classList.contains('card--link') && !next.classList.contains('hidden')) {
+          section.classList.remove('hidden');
+          break;
+        }
+        next = next.nextElementSibling;
+      }
+    });
+
+    if (emptyEl) emptyEl.style.display = visibleCount === 0 ? 'block' : 'none';
+  });
+
+  clearBtn.addEventListener('click', function(){
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    input.focus();
+  });
+})();
+
 window.addEventListener('load', function(){
   showPage('dashboard');
   setTimeout(function(){ initReveal(); animateCards(); }, 80);
+  setTimeout(carregarUltimos, 300);
 });
+
+// ── ÚLTIMOS INFOGRÁFICOS ──
+function carregarUltimos() {
+  var grid = document.getElementById('ultimos-grid');
+  if (!grid) return;
+  var cbName = 'ucb_' + Date.now();
+  var url = GALERIA_SCRIPT_URL + '?action=ultimosArquivos&limite=5&callback=' + cbName;
+  var script = document.createElement('script');
+  var done = false;
+  window[cbName] = function(data) {
+    done = true; delete window[cbName];
+    if (document.body.contains(script)) document.body.removeChild(script);
+    if (data.success && data.arquivos && data.arquivos.length) {
+      grid.innerHTML = data.arquivos.map(function(arq) {
+        var thumb = 'https://drive.google.com/thumbnail?id=' + arq.id + '&sz=w200';
+        return '<div class="ultimo-thumb" onclick="abrirGaleria(\'' + arq.folderId + '\', \'' + arq.pasta.replace(/'/g,"\\'") + '\')" title="' + arq.pasta + '">' +
+          '<img src="' + thumb + '" alt="' + arq.nome + '" loading="lazy">' +
+          '<div class="ultimo-thumb-label">' + arq.pasta + '</div>' +
+          '</div>';
+      }).join('');
+    } else {
+      grid.innerHTML = '';
+    }
+  };
+  script.onerror = function() { if (!done) { done = true; delete window[cbName]; grid.innerHTML = ''; } };
+  setTimeout(function() { if (!done) { done = true; delete window[cbName]; grid.innerHTML = ''; } }, 20000);
+  script.src = url;
+  document.body.appendChild(script);
+}
 
 // ══════════════════════════════════════
 // GALERIA DE INFOGRÁFICOS
