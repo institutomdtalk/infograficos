@@ -1484,7 +1484,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .lightbox-nav{
   position:fixed;top:50%;transform:translateY(-50%);
   width:44px;height:44px;border-radius:50%;
-  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   transition:all 0.3s ease;z-index:10;
 }
@@ -1504,7 +1504,9 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   .galeria-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
   .galeria-header{padding:16px 18px 14px}
   .galeria-body{padding:16px 18px 20px}
-  .lightbox-nav{display:none}
+  .lightbox-nav{width:36px;height:36px}
+  .lightbox-prev{left:6px}
+  .lightbox-next{right:6px}
   .lightbox-stage{padding:60px 16px 50px}
 }
 </style>
@@ -2814,7 +2816,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Touch zoom (pinch)
+  // Touch swipe no lightbox
+  var _swipeStartX = 0, _swipeStartY = 0;
+  var stage = document.getElementById('lightbox-stage');
+  stage.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      _swipeStartX = e.touches[0].clientX;
+      _swipeStartY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+  stage.addEventListener('touchend', function(e) {
+    if (e.changedTouches.length === 1) {
+      var dx = e.changedTouches[0].clientX - _swipeStartX;
+      var dy = e.changedTouches[0].clientY - _swipeStartY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        lightboxNav(dx < 0 ? 1 : -1);
+      }
+    }
+  }, { passive: true });
   var _touchDist = 0;
   stage.addEventListener('touchstart', function(e) {
     if (e.touches.length === 2) {
